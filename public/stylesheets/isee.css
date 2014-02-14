@@ -65,6 +65,9 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+  #drawing-area {
+    margin-left: 10px;
+  }
   #footer {
     background: none;
     padding-bottom: 5px;

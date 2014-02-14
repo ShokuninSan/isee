@@ -39,10 +39,10 @@ class PerceptronActor extends Actor {
       }.mapDone { _ =>
         self ! Leave
       }
-      channel.push("Welcome user!")
+      channel.push("""{ "message": "Welcome user!" }""")
       sender ! (iteratee, enumerator)
     }
-    case Leave => channel.push("Elvis has left the building")
+    case Leave => channel.push("""{ "message": "Elvis has left the building."}""")
     case Broadcast(msg: String) => channel.push(msg)
   }
 
