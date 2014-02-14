@@ -1,0 +1,72 @@
+#messages li {
+  list-style-type: none;
+}
+
+.navbar-brand {
+  font-family: Courier, monospace;
+  color: white;
+}
+
+#message {
+  font-family: Courier, monospace;
+  font-size: 15px;
+  color: white;
+}
+
+#drawing-area {
+  border: 1px solid #f5f5f6;
+  border-radius: 5px;
+  background: #f5f5f5;
+  width: 300px;
+  height: 300px;
+}
+
+#downsample-view {
+  position: absolute;
+  width: 110px;
+  height: 120px;
+  bottom: 0;
+  margin-bottom: 65px;
+  background: white;
+  display: inline;
+  right: 5px;
+}
+
+#lstLetters {
+  border: 1px solid #000;
+  width: 112px;
+  height: 171px;
+  position: absolute;
+  display: inline;
+  left: 313px;
+  top: 137px;
+}
+
+/* Sticky footer styles */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+#footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+  padding-top: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  #footer {
+    background: none;
+    padding-bottom: 5px;
+  }
+}
