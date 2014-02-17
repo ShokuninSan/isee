@@ -4,11 +4,13 @@
 
 <div class="row">
   <div id="drawing-area"></div>
-  <!--<select id="lstLetters" size="10"></select>-->
 </div>
+
 <div id="downsample-view" class="hidden-xs"></div>
 
 <script type="text/javascript">
+  var mapping = ["Cheer up! Everything is gonna be alright!", "I love to see you smile", "Oh no, why are you sad?", "Oops, did I distract you!?", "I see, I see, now you fell in love with me, huh?", "Oh shit! Game over!", "No need to be skeptical! I never failed the Turing Test!", "I'm looking forward to summertime too! So I can get naked for you ;)", "Come on! are you serious? This should be Big Ben?", "Come on! Are you laughing at me?"]
+  //var mapping = ["a zero", "a one", "a two", "a three", "a four", "a five", "a six", "a seven", "an eight", "a ten"]
   $(function() {
 
     ws = new WebSocket("@routes.Isee.messages.webSocketURL()")
@@ -26,7 +28,7 @@
             closestIndex = i;
           }
         }
-        $('#message').text("you typed " + closestIndex);
+        $('#message').text(mapping[closestIndex]);
       } else {
         $('#message').text(data.message);
       }

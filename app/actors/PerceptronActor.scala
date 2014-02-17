@@ -19,7 +19,7 @@ class PerceptronActor extends Actor {
   val network = new Perceptron(List(50, 100, 10), momentum = 0.1)
 
   private def train: Future[Unit] = Future {
-    network.train(Patterns.DIGITS_0_TO_9, iterations = 150)
+    network.train(Patterns.VARIOUS_SYMBOLS, iterations = 150)
   }
 
   val (enumerator, channel) = Concurrent.broadcast[String]
