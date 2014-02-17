@@ -10,6 +10,18 @@
 
 <script type="text/javascript">
   var mapping = ["Cheer up! Everything is gonna be alright!", "I love to see you smile", "Oh no, why are you sad?", "Oops, did I distract you!?", "I see, I see, now you fell in love with me, huh?", "Oh shit! Game over!", "No need to be skeptical! I never failed the Turing Test!", "I'm looking forward to summertime too! So I can get naked for you ;)", "Come on! are you serious? This should be Big Ben?", "Come on! Are you laughing at me?"]
+  var audioMap = [
+    'http://localhost:9000/assets/audio/cheer-up_kate.mp3',
+    'http://localhost:9000/assets/audio/smile_kate.mp3',
+    'http://localhost:9000/assets/audio/sad_kate.mp3',
+    'http://localhost:9000/assets/audio/distract_kate.mp3',
+    'http://localhost:9000/assets/audio/love_kate.mp3',
+    'http://localhost:9000/assets/audio/game-over_kate.mp3',
+    'http://localhost:9000/assets/audio/skeptical_kate.mp3',
+    'http://localhost:9000/assets/audio/summertime_kate.mp3',
+    'http://localhost:9000/assets/audio/big-ben_kate.mp3',
+    'http://localhost:9000/assets/audio/laughing_kate.mp3'
+  ];
   //var mapping = ["a zero", "a one", "a two", "a three", "a four", "a five", "a six", "a seven", "an eight", "a ten"]
   $(function() {
 
@@ -29,6 +41,7 @@
           }
         }
         $('#message').text(mapping[closestIndex]);
+        new Audio(audioMap[closestIndex]).play();
       } else {
         $('#message').text(data.message);
       }
