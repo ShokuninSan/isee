@@ -2,7 +2,9 @@
 
 utils = angular.module('utils', [])
 
-utils.controller 'utilsCtrl', ($scope, $log) ->
+utils.controller 'utilsCtrl', ($scope, $log, Patterns, Websocket) ->
+
+  $scope.websocket = Websocket
 
   DOWNSAMPLE_WIDTH = 5
   DOWNSAMPLE_HEIGHT = 8
@@ -44,7 +46,7 @@ utils.controller 'utilsCtrl', ($scope, $log) ->
         message: "Downsample has downsampled"
         input: $scope.convertDSData($scope.downSampleData)
       }
-      ws.send(JSON.stringify(json))
+      $scope.websocket.send(JSON.stringify(json))
 
   $scope.clearDownSample = ->
     $scope.downSampleData = ENCOG.ArrayUtil.allocate1D(DOWNSAMPLE_WIDTH * DOWNSAMPLE_HEIGHT)
@@ -52,28 +54,7 @@ utils.controller 'utilsCtrl', ($scope, $log) ->
     $scope.displaySample()
 
   $scope.preload = ->
-    # digits
-    #$scope.defineChar("0", new Array(-1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1))
-    #$scope.defineChar("1", new Array(1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1))
-    #$scope.defineChar("2", new Array(1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1))
-    #$scope.defineChar("3", new Array(1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1))
-    #$scope.defineChar("4", new Array(1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1))
-    #$scope.defineChar("5", new Array(1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1))
-    #$scope.defineChar("6", new Array(-1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1))
-    #$scope.defineChar("7", new Array(1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1))
-    #$scope.defineChar("8", new Array(1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1))
-    #$scope.defineChar("9", new Array(1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1))
-    # various symbols
-    $scope.defineChar("distracted", new Array(1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1))
-    $scope.defineChar("happy", new Array(1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1))
-    $scope.defineChar("sad", new Array(1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1))
-    $scope.defineChar("astonished", new Array(1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1))
-    $scope.defineChar("love", new Array(1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1))
-    $scope.defineChar("death", new Array(1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1))
-    $scope.defineChar("skeptical", new Array(1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1))
-    $scope.defineChar("summertime", new Array(-1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1))
-    $scope.defineChar("bigben", new Array(-1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1))
-    $scope.defineChar("laughing", new Array(1, 1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1))
+    $scope.defineChar(key, value) for key, value of Patterns.symbols
 
   $scope.defineChar = (charEntered, data) ->
     $scope.charData[charEntered] = data
@@ -82,5 +63,85 @@ utils.controller 'utilsCtrl', ($scope, $log) ->
     $scope.downsampleArea.render()
 
   $scope.init()
+
+utils.factory 'Patterns', ->
+  symbols:
+    "distracted": new Array(1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1)
+    "happy"     : new Array(1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1)
+    "sad"       : new Array(1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1)
+    "astonished": new Array(1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1)
+    "love"      : new Array(1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1)
+    "death"     : new Array(1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1)
+    "skeptical" : new Array(1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1)
+    "summertime": new Array(-1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1)
+    "bigben"    : new Array(-1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1)
+    "laughing"  : new Array(1, 1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1)
+  digits:
+    "0": new Array(-1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1)
+    "1": new Array(1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1)
+    "2": new Array(1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1)
+    "3": new Array(1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1)
+    "4": new Array(1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1)
+    "5": new Array(1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1)
+    "6": new Array(-1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1)
+    "7": new Array(1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1)
+    "8": new Array(1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1)
+    "9": new Array(1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1)
+
+utils.service 'Voice', ->
+  "distracted" : "#{$('#env').data('audio')}/cheer-up_kate.mp3"
+  "happy"      : "#{$('#env').data('audio')}/smile_kate.mp3"
+  "sad"        : "#{$('#env').data('audio')}/sad_kate.mp3"
+  "astonished" : "#{$('#env').data('audio')}/distract_kate.mp3"
+  "love"       : "#{$('#env').data('audio')}/love_kate.mp3"
+  "death"      : "#{$('#env').data('audio')}/game-over_kate.mp3"
+  "skeptical"  : "#{$('#env').data('audio')}/skeptical_kate.mp3"
+  "summertime" : "#{$('#env').data('audio')}/summertime_kate.mp3"
+  "bigben"     : "#{$('#env').data('audio')}/big-ben_kate.mp3"
+  "laughing"   : "#{$('#env').data('audio')}/laughing_kate.mp3"
+
+utils.service 'Console', ->
+  "distracted" : "Cheer up! Everything is gonna be alright!"
+  "happy"      : "I love to see you smile"
+  "sad"        : "Oh no, why are you sad?"
+  "astonished" : "Oops, did I distract you!?"
+  "love"       : "I see, I see, now you fell in love with me, huh?"
+  "death"      : "Oh shit! Game over!"
+  "skeptical"  : "No need to be skeptical! I never failed the Turing Test!"
+  "summertime" : "I'm looking forward to summertime too! So I can get naked for you ;)"
+  "bigben"     : "Come on! are you serious? This should be Big Ben?"
+  "laughing"   : "Come on! Are you laughing at me?"
+  
+utils.service 'Mapping', ->
+  symbols: [
+    "distracted",
+    "happy",
+    "sad",
+    "astonished",
+    "love",
+    "death",
+    "skeptical",
+    "summertime",
+    "bigben",
+    "laughing"
+  ]
+
+utils.service 'Websocket', (Console, Voice, Mapping) ->
+  ws = new WebSocket($('#env').data('websockets'))
+  ws.onmessage = (msg) ->
+    data = JSON.parse(msg.data)
+    if data.result
+      minDiff = 1.0
+      closestIndex = 0
+      for i in [0..data.result.length]
+        diff = 1.0 - data.result[i]
+        if (diff < minDiff)
+          minDiff = diff
+          closestIndex = i
+      $('#message').text(Console[Mapping.symbols[closestIndex]])
+      new Audio(Voice[Mapping.symbols[closestIndex]]).play()
+    else
+      $('#message').text(data.message)
+  ws
 
 angular.module('isee', ['utils'])
