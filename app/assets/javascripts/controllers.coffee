@@ -16,7 +16,7 @@ define( ->
     $scope.drawingArea = {}
 
     $scope.init = ->
-      $scope.drawingArea = ENCOG.GUI.Drawing.create('drawing-area', 300, 300)
+      $scope.drawingArea = ENCOG.GUI.Drawing.create('drawing-area', 900, 600)
       $scope.downsampleArea = ENCOG.GUI.CellGrid.create('downsample-view', $scope.DOWNSAMPLE_WIDTH, $scope.DOWNSAMPLE_HEIGHT, 110, 120)
       $scope.downsampleArea.outline = true
       $scope.downsampleArea.mouseDown = (x, y) ->
