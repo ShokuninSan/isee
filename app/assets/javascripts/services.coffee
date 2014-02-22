@@ -21,11 +21,11 @@ define( ->
     "happy"      : "I love to see you smile"
     "sad"        : "Oh no, why are you sad?"
     "astonished" : "Oops, did I distract you!?"
-    "love"       : "I see, I see, now you fell in love with me, huh?"
+    "love"       : "I see, I see, you fell in love with me, huh?"
     "death"      : "Oh shit! Game over!"
     "skeptical"  : "No need to be skeptical! I never failed the Turing Test!"
-    "summertime" : "I'm looking forward to summertime too! So I can get naked for you ;)"
-    "bigben"     : "Come on! are you serious? This should be Big Ben?"
+    "summertime" : "I'm looking forward to summertime too! So I can wear sexy microchips for you ;)"
+    "bigben"     : "Come on! Are you serious? This is supposed to be Big Ben?"
     "laughing"   : "Come on! Are you laughing at me?")
 
   .service('Mapping', ->
