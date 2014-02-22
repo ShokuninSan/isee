@@ -1,13 +1,11 @@
 package controllers
 
-import akka.actor.{ActorRef, Actor, Props, actorRef2Scala}
+import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.iteratee.{ Concurrent, Enumerator, Iteratee }
+import play.api.libs.iteratee.{ Enumerator, Iteratee }
 import play.api.mvc.{ Action, Controller, WebSocket }
 import scala.language.postfixOps
-import wasabi.perceptron.{Pattern, Perceptron}
-import scala.concurrent.{Future, ExecutionContext}
-import actors.{Join, Train, PerceptronActor}
+import actors.Join
 import akka.util.Timeout
 import scala.concurrent.duration.DurationInt
 
