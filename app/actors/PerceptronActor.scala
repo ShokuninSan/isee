@@ -17,7 +17,7 @@ case class Message(message: String, input: Seq[Double])
 
 class PerceptronActor extends Actor {
 
-  private val network = new Perceptron(List(50, 100, 10), momentum = 0.1)
+  private val network = new Perceptron(List(40, 100, 10), momentum = 0.1)
   private val (enumerator, channel) = Concurrent.broadcast[String]
 
   private def train: Future[Unit] = Future {
