@@ -22,7 +22,7 @@ define( ->
       $scope.downsampleArea.mouseDown = (x, y) ->
       $scope.downsampleArea.determineColor = (row, col) ->
         index = (row * this.gridWidth) + col
-        if ($scope.downSampleData[index] < 0) then "white" else "black"
+        if ($scope.downSampleData[index] < 0) then "white" else "#62a24b"
       $scope.downSampleData = $scope.drawingArea.performDownSample()
       $scope.displaySample($scope.downSampleData)
       $scope.preload()
