@@ -55,6 +55,7 @@ define( ->
             minDiff = diff
             closestIndex = i
         $('#message').text(Console[Mapping.symbols[closestIndex]])
+        $('#output').text(JSON.stringify(parseFloat(d.toFixed(3)) for d in data.result))
         new Audio(Voice[Mapping.symbols[closestIndex]]).play()
       else
         $('#message').text(data.message)

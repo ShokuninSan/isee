@@ -48,6 +48,7 @@ define( ->
           message: "Downsample has downsampled"
           input: $scope.convertDSData($scope.downSampleData)
         }
+        $('#input').text(JSON.stringify(json.input))
         $scope.websocket.send(JSON.stringify(json))
 
     $scope.clearDownSample = ->
