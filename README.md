@@ -1,6 +1,6 @@
 # Welcome to iSee
 
-An awesome application recognizing drawn images, backed by the Wasabi machine learning framework!
+An awesome application recognizing drawn images, backed by the synaptic machine learning framework!
 
 ## Installation requirements
 
